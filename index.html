@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeus Button Page with Preloader</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Zeus</h1>
+        <p id="intro">Getting Ahead! From Reactive to Proactive Threat Detection and Response. A solution which detects vulnerabilities as they are reported so that we could get ahead, know as they are reported, get into action to understand exposure and prioritize the remediation based on the exploit prediction.</p>
+        <button class="zeus-button" onclick="startPreloader()">Let's get started</button>
+    </div>
+
+    <!-- Preloader Section -->
+    <div id="preloader" class="preloader-hidden">
+        <img src="spiral-css-preloader.gif" alt="Loading..." class="preloader-gif">
+        <div id="steps-container">
+            <p id="step-text">Fetching data from inventory...</p>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="success-message" class="success-hidden">
+        <h2>Loading Complete!</h2>
+        <p>Congratulations! Everything is ready.</p>
+    </div>
+
+    <script>
+        function startPreloader() {
+            // Hide the container content and show the preloader
+            document.querySelector('.container').style.display = 'none';
+            document.getElementById('preloader').style.display = 'block'; // Show preloader
+
+            // Initialize steps and simulate updates
+            const steps = [
+                'Fetching data from inventory...',
+                'Running Zeus engine...',
+                'Calling APIs...',
+                'Correlating data...',
+                'Generating output...'
+            ];
+            let stepIndex = 0;
+
+            const interval = setInterval(function() {
+                stepIndex++;
+
+                if (stepIndex >= steps.length) {
+                    clearInterval(interval);
+
+                    // Show the success message after preloading
+                    document.getElementById('preloader').style.display = 'none'; // Hide preloader
+                    document.getElementById('success-message').style.display = 'block'; // Show success message
+
+                    // Redirect to a new page after 2 seconds
+                    setTimeout(function() {
+                        window.location.href = 'new_index.html'; // Redirect to the new page
+                    }, 1000); // 2-second delay for showing the success message
+                } else {
+                    document.getElementById('step-text').innerText = steps[stepIndex];
+                }
+
+            }, 1400); // Update every 1400ms
+        }
+
+        // Initially hide the preloader and success message on page load
+        window.onload = function() {
+            document.getElementById('preloader').style.display = 'none';
+            document.getElementById('success-message').style.display = 'none';
+        };
+    </script>
+</body>
+</html>
